@@ -1,6 +1,6 @@
 import requests
 
-endpoint = "http://localhost:8000/todo/list/"
+endpoint = "http://localhost:8000/todo/"
 
 message = requests.get(endpoint)
 

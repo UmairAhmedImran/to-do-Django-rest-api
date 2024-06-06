@@ -1,4 +1,4 @@
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, authentication, permissions
 from .models import Todo
 from .serializers import TodoSerializer
 
@@ -6,6 +6,8 @@ from .serializers import TodoSerializer
 class TodoListCreateAPIView(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_classes = [authentication.SessionAuthentication]
 
 
 class TodoRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):

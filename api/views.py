@@ -8,7 +8,8 @@ class TodoListCreateAPIView(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     permission_classes = [permissions.IsAdminUser, isTodoEditor]
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication, authentication.TokenAuthentication]
 
 
 class TodoRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):

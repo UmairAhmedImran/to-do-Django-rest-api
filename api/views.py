@@ -1,12 +1,13 @@
 from rest_framework import generics, mixins, authentication, permissions
 from .models import Todo
 from .serializers import TodoSerializer
+from .permission import isTodoEditor
 
 
 class TodoListCreateAPIView(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAdminUser, isTodoEditor]
     authentication_classes = [authentication.SessionAuthentication]
 
 
@@ -26,6 +27,9 @@ class TodoMixin(generics.GenericAPIView,
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     lookup_field = "pk"
+
+    permission_classes = [permissions.IsAdminUser, isTodoEditor]
+    authentication_classes = [authentication.SessionAuthentication]
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")

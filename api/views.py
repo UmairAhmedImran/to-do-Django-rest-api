@@ -1,7 +1,9 @@
 from rest_framework import generics, mixins, authentication, permissions
+from rest_framework.response import Response
 from .models import Todo
 from .serializers import TodoSerializer
 from .mixins import TodoEditorPermissionMixin
+from . import client
 
 
 class TodoListCreateAPIView(TodoEditorPermissionMixin,
@@ -52,3 +54,21 @@ class TodoMixin(generics.GenericAPIView,
 
     def perform_destroy(self, instance):
         return super().perform_destroy(instance)
+
+
+class SearchListView(generics.GenericAPIView):
+    def get(self, request,  *args, **kwatgs):
+        if not request.user.is_authenticated:
+            return Todo.objects.none()
+        query = []
+        tags = []
+
+        query = request.GET.get('q')
+        tags = request.GET.get('tag')
+
+        if not query:
+            return Response("", status=400)
+
+        result = client.perform_search(query, tags=tags)
+
+        return Response(result)

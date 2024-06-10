@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'rest_framework.authtoken',
+    'algoliasearch_django',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"]
 }
 
+ALGOLIA = {
+    'APPLICATION_ID': '2M14Q5BLXD',
+    'API_KEY': '2aea94325a9df7a7543ba14567247b90',
+    'INDEX_PREFIX': "TODO",
+}
 
 ROOT_URLCONF = 'todo.urls'
 

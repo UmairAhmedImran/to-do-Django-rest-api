@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TodoListCreateAPIView, TodoRetrieveUpdateDelete, TodoMixin
+from .views import TodoListCreateAPIView, TodoRetrieveUpdateDelete, TodoMixin, SearchListView
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path("update/<int:pk>/", TodoMixin.as_view()),
     path("retrive/<int:pk>/", TodoMixin.as_view()),
     path("auth/", obtain_auth_token),
+    path('search/', SearchListView.as_view())
 ]

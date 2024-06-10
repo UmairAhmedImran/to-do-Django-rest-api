@@ -11,4 +11,8 @@ class TodoIndexer(AlgoliaIndex):
         "content"
     ]
 
+    settings = {
+        'searchableAttributes': ['title', 'content']
+    }
+
     tags = "get_tag"

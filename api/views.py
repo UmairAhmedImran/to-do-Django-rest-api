@@ -1,4 +1,4 @@
-from rest_framework import generics, mixins, authentication, permissions
+from rest_framework import generics, mixins
 from rest_framework.response import Response
 from .models import Todo
 from .serializers import TodoSerializer
@@ -17,6 +17,14 @@ class TodoRetrieveUpdateDelete(TodoEditorPermissionMixin,
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     lookup_field = 'pk'
+
+
+class get_view(generics.ListAPIView, TodoEditorPermissionMixin):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+    lookup_field = 'pk'
+
+# retrieve_view = TodoRetrieveUpdateDelete({'get': 'retrieve'})
 
 
 class TodoMixin(generics.GenericAPIView,
